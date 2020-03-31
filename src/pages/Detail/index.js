@@ -2,6 +2,7 @@ import React from 'react';
 import {Image, StatusBar} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
+import email from 'react-native-email';
 
 import logoImg from '../../assets/logo.png';
 
@@ -22,10 +23,21 @@ import {
 
 export default function Detail() {
   const navigation = useNavigation();
+  const message =
+    'Hello, I am contacting as I am interesting to help the case "Help My dog" byt donation $120,00';
 
   function navigateBack() {
     navigation.goBack();
   }
+
+  function sendMail() {
+    email(['neregato.nilo@gmail.com'], {
+      subject: 'Hero of: Help the dog',
+      body: message,
+    }).catch(console.error);
+  }
+
+  function sendWhatsApp() {}
 
   return (
     <Container statusBarHeight={StatusBar.currentHeight}>
@@ -54,7 +66,7 @@ export default function Detail() {
           <ActionButton onPress={() => {}}>
             <ButtonDescription>WhatsApp</ButtonDescription>
           </ActionButton>
-          <ActionButton onPress={() => {}}>
+          <ActionButton onPress={sendMail}>
             <ButtonDescription>E-mail</ButtonDescription>
           </ActionButton>
         </Actions>
