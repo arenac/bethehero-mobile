@@ -34,3 +34,39 @@ export const Description = styled.Text`
   line-height: 24px;
   color: #737380;
 `;
+
+export const IncidentList = styled.FlatList`
+  margin-top: 32px;
+`;
+
+export const Incident = styled.View`
+  padding: 24px;
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 16px;
+`;
+
+export const IncitendProperty = styled.Text`
+  font-size: 14px;
+  color: #41414d;
+  font-weight: bold;
+`;
+
+export const IncidentValue = styled.Text`
+  margin-top: 8px;
+  font-size: 15px;
+  margin-bottom: 24px;
+  color: #737380;
+`;
+
+export const Buton = styled.TouchableOpacity`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ButtonText = styled.Text`
+  color: #e02041;
+  font-size: 15px;
+  font-weight: bold;
+`;
