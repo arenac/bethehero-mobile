@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, StatusBar, Linking} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 import email from 'react-native-email';
 
@@ -23,22 +23,30 @@ import {
 
 export default function Detail() {
   const navigation = useNavigation();
-  const message =
-    'Hello, I am contacting as I am interesting to help the case "Help My dog" by donating $120,00';
+  const route = useRoute();
+  const incident = route.params.incident;
+  const message = `Hello, I am contacting as I am interesting to help the case "${
+    incident.title
+  }" by donating ${Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(incident.value)}`;
 
   function navigateBack() {
     navigation.goBack();
   }
 
   function sendMail() {
-    email(['neregato.nilo@gmail.com'], {
-      subject: 'Hero of: Help the dog',
+    email([`${incident.email}`], {
+      subject: `Hero of: ${incident.title}`,
       body: message,
     }).catch(console.error);
   }
 
   function sendWhatsApp() {
-    Linking.openURL(`whatsapp://send?phone=123456789&text=${message}`);
+    Linking.openURL(
+      `whatsapp://send?phone=${incident.whatsapp}&text=${message}`,
+    );
   }
 
   return (
@@ -52,13 +60,20 @@ export default function Detail() {
 
       <Incident>
         <IncitendProperty style={{marginTop: 0}}>ONG:</IncitendProperty>
-        <IncidentValue>APAD</IncidentValue>
+        <IncidentValue>
+          {incident.title} from {incident.city}/{incident.country}
+        </IncidentValue>
 
         <IncitendProperty>CASO:</IncitendProperty>
-        <IncidentValue>Help the dog</IncidentValue>
+        <IncidentValue>{incident.description}</IncidentValue>
 
         <IncitendProperty>VALUE:</IncitendProperty>
-        <IncidentValue>$120,00</IncidentValue>
+        <IncidentValue>
+          {Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+          }).format(incident.value)}
+        </IncidentValue>
       </Incident>
       <ContactContainer>
         <HeroTitle>Save the day!</HeroTitle>
