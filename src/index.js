@@ -1,4 +1,6 @@
 import 'react-native-gesture-handler';
+import 'intl';
+import 'intl/locale-data/jsonp/en-US';
 import React from 'react';
 
 import Routes from './routes';
